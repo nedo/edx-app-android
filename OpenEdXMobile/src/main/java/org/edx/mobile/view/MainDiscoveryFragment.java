@@ -106,8 +106,8 @@ public class MainDiscoveryFragment extends BaseFragment {
         }
 
         // Degree discovery
-        if (environment.getConfig().getDiscoveryConfig().getProgramDiscoveryConfig() != null &&
-                environment.getConfig().getDiscoveryConfig().getProgramDiscoveryConfig().isDiscoveryEnabled(environment)) {
+        if (environment.getConfig().getDiscoveryConfig().getDegreeDiscoveryConfig() != null &&
+                environment.getConfig().getDiscoveryConfig().getDegreeDiscoveryConfig().isDiscoveryEnabled(environment)) {
             Fragment degreeDiscoveryFragment = getChildFragmentManager().findFragmentByTag("fragment_degrees");
             if (degreeDiscoveryFragment == null) {
                 degreeDiscoveryFragment = new WebViewDiscoverDegreesFragment();
@@ -118,15 +118,16 @@ public class MainDiscoveryFragment extends BaseFragment {
             addTabItem(R.id.option_degrees, R.string.label_degrees);
         }
 
-        if (fragmentsArray.size() > 1) {
+        if (fragmentsArray.size() < 2) {
+            hideTabsBar();
+        }
+        if (fragmentsArray.size() > 0) {
             setTabsBackground(binding.options);
             final int firstBtnId = fragmentsArray.keyAt(0);
             if (firstBtnId != -1) {
                 onFragmentSelected(firstBtnId, false);
                 binding.options.check(firstBtnId);
             }
-        } else {
-            hideTabsBar();
         }
     }
 
