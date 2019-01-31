@@ -146,6 +146,9 @@ public class MainDiscoveryFragment extends BaseFragment {
                 case R.id.option_programs:
                     environment.getAnalyticsRegistry().trackScreenView(Analytics.Screens.FIND_PROGRAMS);
                     break;
+                case R.id.option_degrees:
+                    environment.getAnalyticsRegistry().trackScreenView(Analytics.Screens.FIND_DEGREES);
+                    break;
             }
         }
     }
