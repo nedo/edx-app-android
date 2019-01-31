@@ -105,6 +105,19 @@ public class MainDiscoveryFragment extends BaseFragment {
             addTabItem(R.id.option_programs, R.string.label_my_programs);
         }
 
+        // Degree discovery
+        if (environment.getConfig().getDiscoveryConfig().getProgramDiscoveryConfig() != null &&
+                environment.getConfig().getDiscoveryConfig().getProgramDiscoveryConfig().isDiscoveryEnabled(environment)) {
+            Fragment degreeDiscoveryFragment = getChildFragmentManager().findFragmentByTag("fragment_degrees");
+            if (degreeDiscoveryFragment == null) {
+                degreeDiscoveryFragment = new WebViewDiscoverDegreesFragment();
+                commitFragmentTransaction(R.id.fl_container, degreeDiscoveryFragment, "fragment_degrees");
+            }
+
+            fragmentsArray.put(R.id.option_degrees, degreeDiscoveryFragment);
+            addTabItem(R.id.option_degrees, R.string.label_degrees);
+        }
+
         if (fragmentsArray.size() > 1) {
             setTabsBackground(binding.options);
             final int firstBtnId = fragmentsArray.keyAt(0);
