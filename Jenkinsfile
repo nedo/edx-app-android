@@ -55,7 +55,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('compiling edx-app-android') {
             steps {
                 writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
@@ -88,28 +88,17 @@ pipeline {
             }
         }
 
-        stage('start execution') {
+        stage('setup execution') {
             steps {
                 copyArtifacts fingerprintArtifacts: true, projectName: 'edx-app-android-pipeline', selector: lastSuccessful(), target: "/"                
             }
         }
 
-        
         stage('start execution') {
             steps {
                 sh 'bash ./resources/execute_testing.sh'
             }
         }
-        // stage('valdiate compiled app') {
-        //     steps {
-        //         sh 'bash ./resources/validate_builds.sh'
-        //     }
-        // }
-        // stage('archive the build') {
-        //     steps {
-        //         archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
-        //     }
-        // }
 
     }
 } 
