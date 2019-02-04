@@ -11,7 +11,6 @@ pipeline {
             APK_PATH = 'OpenEdXMobile/build/outputs/apk/prod/debuggable'
             CONFIG_REPO_NAME = 'edx-mobile-config'
     }       
-
     stages {
     //     stage('checkingout configs') { 
     //         steps {
@@ -45,7 +44,7 @@ pipeline {
                 dir('edx-mobile-config'){
                     checkout([
                         $class: 'GitSCM', 
-                        branches: [[name: '*/master']], 
+                        branches: [[name: 'naveed/automation_configs']], 
                         doGenerateSubmoduleConfigurations: false, 
                         extensions: [], 
                         submoduleCfg: [], 
