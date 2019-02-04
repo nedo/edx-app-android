@@ -13,31 +13,49 @@ pipeline {
     }       
 
     stages {
-        stage('checkingout configs') { 
+    //     stage('checkingout configs') { 
+    //         steps {
+    //             sh 'mkdir -p edx-mobile-config'
+    //             dir('edx-mobile-config'){
+    //                 sshagent(credentials: ['jenkins-worker', 'jenkins-worker-pem'], ignoreMissing: true) {
+    //                 checkout changelog: false, poll: false, scm: [
+    //                     $class: 'GitSCM', 
+    //                     branches: 
+    // // Using specific branch to avoid Firebase config limitations
+    //                             //[[name: '*/master']],
+    //                             [[name: 'naveed/automation_configs']],
+    //                     doGenerateSubmoduleConfigurations: false, 
+    //                     extensions: 
+    //                             [[$class: 'CloneOption', honorRefspec: true,
+    //                                 noTags: true, shallow: true]], 
+    //                     submoduleCfg: [], 
+    //                     userRemoteConfigs: 
+    //                                 [[credentialsId: 'jenkins-worker',
+    //                                 refspec: '+refs/heads/*:refs/remotes/origin/*', 
+    //                                 url: "git@github.com:edx/${CONFIG_REPO_NAME}.git"]]
+    //                         ]
+    //                 }
+    //             }
+    //         }
+    //     }
+
+        stage('checkingout configs') {
             steps {
                 sh 'mkdir -p edx-mobile-config'
                 dir('edx-mobile-config'){
-                    sshagent(credentials: ['jenkins-worker', 'jenkins-worker-pem'], ignoreMissing: true) {
-                    checkout changelog: false, poll: false, scm: [
+                    checkout([
                         $class: 'GitSCM', 
-                        branches: 
-    // Using specific branch to avoid Firebase config limitations
-                                //[[name: '*/master']],
-                                [[name: 'naveed/automation_configs']],
+                        branches: [[name: '*/master']], 
                         doGenerateSubmoduleConfigurations: false, 
-                        extensions: 
-                                [[$class: 'CloneOption', honorRefspec: true,
-                                    noTags: true, shallow: true]], 
+                        extensions: [], 
                         submoduleCfg: [], 
                         userRemoteConfigs: 
-                                    [[credentialsId: 'jenkins-worker',
-                                    refspec: '+refs/heads/*:refs/remotes/origin/*', 
-                                    url: "git@github.com:edx/${CONFIG_REPO_NAME}.git"]]
-                            ]
-                    }
+                        [[credentialsId: 'USER', url: 'https://github.com/edx/edx-mobile-config']]
+                        ])
                 }
             }
         }
+        
         stage('compiling edx-app-android') {
             steps {
                 writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
@@ -54,5 +72,44 @@ pipeline {
                 archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
             }
         }
+
+        // stage('setup emulator '){
+        //    steps {               
+        //     //    sh 'chmod -R 777 /opt/android-sdk-linux/tools/bin/avdmanager'
+        //     //    sh 'sudo chmod -R $USER:$USER /opt/android-sdk-linux/tools/bin/avdmanager'
+        //        sh 'bash ./resources/setup_emulator.sh'
+        //        } 
+        // }
+
+        stage('checkout test repo') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/edx/edx-app-test.git']]])
+
+            }
+        }
+
+        stage('start execution') {
+            steps {
+                copyArtifacts fingerprintArtifacts: true, projectName: 'edx-app-android-pipeline', selector: lastSuccessful(), target: "/"                
+            }
+        }
+
+        
+        stage('start execution') {
+            steps {
+                sh 'bash ./resources/execute_testing.sh'
+            }
+        }
+        // stage('valdiate compiled app') {
+        //     steps {
+        //         sh 'bash ./resources/validate_builds.sh'
+        //     }
+        // }
+        // stage('archive the build') {
+        //     steps {
+        //         archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
+        //     }
+        // }
+
     }
 } 
