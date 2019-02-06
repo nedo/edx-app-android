@@ -72,13 +72,13 @@ pipeline {
             }
         }
 
-        // stage('setup emulator '){
-        //    steps {               
-        //     //    sh 'chmod -R 777 /opt/android-sdk-linux/tools/bin/avdmanager'
-        //     //    sh 'sudo chmod -R $USER:$USER /opt/android-sdk-linux/tools/bin/avdmanager'
-        //        sh 'bash ./resources/setup_emulator.sh'
-        //        } 
-        // }
+        stage('setup emulator '){
+           steps {               
+            //    sh 'chmod -R 777 /opt/android-sdk-linux/tools/bin/avdmanager'
+            //    sh 'sudo chmod -R $USER:$USER /opt/android-sdk-linux/tools/bin/avdmanager'
+               sh 'bash ./resources/setup_emulator.sh'
+               } 
+        }
 
         stage('checkout test repo') {
             steps {
@@ -87,11 +87,11 @@ pipeline {
             }
         }
 
-        stage('setup execution') {
-            steps {
-                copyArtifacts fingerprintArtifacts: true, projectName: 'edx-app-android-pipeline', selector: lastSuccessful(), target: "/"                
-            }
-        }
+        // stage('setup execution') {
+        //     steps {
+        //         copyArtifacts fingerprintArtifacts: true, projectName: 'edx-app-android-pipeline', selector: lastSuccessful(), target: "/"                
+        //     }
+        // }
 
         stage('start execution') {
             steps {
