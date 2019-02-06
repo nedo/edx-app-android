@@ -75,7 +75,6 @@ pipeline {
         stage('setup emulator '){
            steps {               
             //    sh 'chmod -R 777 /opt/android-sdk-linux/tools/bin/avdmanager'
-               sh 'chmod -R $USER:$USER /opt/android-sdk-linux/tools/bin/avdmanager'
                sh 'bash ./resources/setup_emulator.sh'
                } 
         }
