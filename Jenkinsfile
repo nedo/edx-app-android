@@ -38,22 +38,22 @@ pipeline {
     //         }
     //     }
 
-        stage('checkingout configs') {
-            steps {
-                sh 'mkdir -p edx-mobile-config'
-                dir('edx-mobile-config'){
-                    checkout([
-                        $class: 'GitSCM', 
-                        branches: [[name: 'naveed/automation_configs']], 
-                        doGenerateSubmoduleConfigurations: false, 
-                        extensions: [], 
-                        submoduleCfg: [], 
-                        userRemoteConfigs: 
-                        [[credentialsId: 'USER', url: 'https://github.com/edx/edx-mobile-config']]
-                        ])
-                }
-            }
-        }
+        // stage('checkingout configs') {
+        //     steps {
+        //         sh 'mkdir -p edx-mobile-config'
+        //         dir('edx-mobile-config'){
+        //             checkout([
+        //                 $class: 'GitSCM', 
+        //                 branches: [[name: 'naveed/automation_configs']], 
+        //                 doGenerateSubmoduleConfigurations: false, 
+        //                 extensions: [], 
+        //                 submoduleCfg: [], 
+        //                 userRemoteConfigs: 
+        //                 [[credentialsId: 'USER', url: 'https://github.com/edx/edx-mobile-config']]
+        //                 ])
+        //         }
+        //     }
+        // }
 
         stage('compiling edx-app-android') {
             steps {
@@ -75,7 +75,7 @@ pipeline {
         stage('setup emulator '){
            steps {               
             //    sh 'chmod -R 777 /opt/android-sdk-linux/tools/bin/avdmanager'
-            //    sh 'sudo chmod -R $USER:$USER /opt/android-sdk-linux/tools/bin/avdmanager'
+               sh 'chmod -R $USER:$USER /opt/android-sdk-linux/tools/bin/avdmanager'
                sh 'bash ./resources/setup_emulator.sh'
                } 
         }
