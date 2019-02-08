@@ -12,6 +12,8 @@ kill_all_emus() {
 echo 'Creating emulator'
 # chmod 777 -R /root/.android
 # chmod 777 $ANDROID_HOME/tools/bin/avdmanager
+$ANDROID_HOME/tools/bin/avdmanager
+
 echo 'n' | $ANDROID_HOME/tools/bin/avdmanager create avd -n test-android -f -k "system-images;android-27;google_apis;x86"
 
 echo 'loading emulator'
