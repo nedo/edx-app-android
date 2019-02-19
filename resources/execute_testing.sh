@@ -13,7 +13,6 @@ else
 fi
 
 # Install app on emulator 
-# $ANDROID_HOME/platform-toosl/adb devices |grep 'Success'
 
 # Run server
 appium &
