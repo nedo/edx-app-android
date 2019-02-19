@@ -24,7 +24,6 @@ EXPECTED_DEVICE_NAME='emulator-5554'
 $ANDROID_HOME/platform-tools/adb devices |grep $EXPECTED_DEVICE_NAME
 if [ $? == 0 ]; then
    echo "The device is accessible"
-   exit 0
 else
    echo "The device is not accesible"
    exit 1
