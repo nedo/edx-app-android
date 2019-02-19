@@ -32,23 +32,4 @@ fi
 echo "Sending Key event, to press HOME button"
 $ANDROID_HOME/platform-tools/adb shell input keyevent 3 &
 
-kill_all_emus
-
-# Wait until the newly created emulator has finished booting before running tests
-# while true; do
-#     echo "Checking if the emulator is ready"
-#     # Due to extra characters in getprop commands, test for presence of a certain string
-#     DEVICE_BOOT_COMPLETE=$(adb shell getprop dev.bootcomplete |grep -c '1')
-#     SYS_BOOT_COMPLETE=$(adb shell getprop sys.boot_completed |grep -c '1')
-#     INIT_ANIM_STATE=$(adb shell getprop init.svc.bootanim |grep -c 'stopped')
-#     if [ $DEVICE_BOOT_COMPLETE -gt 0 ] && [ $SYS_BOOT_COMPLETE -gt 0 ] && [ $INIT_ANIM_STATE -gt 0 ]; then
-#         echo "emulator ready..."
-#         break
-#     else 
-#         echo "emulator is not ready, going to wait..."   
-#     fi
-#     sleep 30
-# done
-
-
-
+# kill_all_emus

@@ -2,24 +2,23 @@
 
 set -e
 
-# check device accessibility 
+# check device accessibility again 
 EXPECTED_DEVICE_NAME='emulator-5554'
 $ANDROID_HOME/platform-tools/adb devices |grep $EXPECTED_DEVICE_NAME
 if [ $? == 0 ]; then
    echo "The device is accessible"
-   exit 0
 else
    echo "The device is not accesible"
    exit 1
 fi
 
-# # Install app on emulator 
+# Install app on emulator 
 # $ANDROID_HOME/platform-toosl/adb devices |grep 'Success'
 
+# Run server
+appium &
 
-# appium &
-
-# sleep 1m
+sleep 1m
 
 # /usr/bin/pip3 install -r requirements.txt
 

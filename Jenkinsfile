@@ -85,12 +85,6 @@ pipeline {
             }
         }
 
-        // stage('setup execution') {
-        //     steps {
-        //         copyArtifacts fingerprintArtifacts: true, projectName: 'edx-app-android-pipeline', selector: lastSuccessful(), target: "/"                
-        //     }
-        // }
-
         stage('start execution') {
             steps {
                 sh 'bash ./resources/execute_testing.sh'
