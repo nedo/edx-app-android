@@ -20,6 +20,16 @@ $ANDROID_HOME/emulator/emulator -avd test-android -no-boot-anim -no-window -noau
 
 sleep 45
 
+EXPECTED_DEVICE_NAME='emulator-5554'
+$ANDROID_HOME/platform-tools/adb devices |grep $EXPECTED_DEVICE_NAME
+if [ $? == 0 ]; then
+   echo "The device is accessible"
+   exit 0
+else
+   echo "The device is not accesible"
+   exit 1
+fi
+
 # Wait until the newly created emulator has finished booting before running tests
 while true; do
     echo "Checking if the emulator is ready"
