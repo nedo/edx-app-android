@@ -13,10 +13,20 @@ else
 fi
 
 # Install app on emulator 
+$ANDROID_HOME/platform-tools/adb install "$APK_PATH/*.apk"
+sleep 3m
+
+# Verify if edX app is installed successfully
+$ANDROID_HOME/platform-tools/adb shell pm list packages | grep org.edx.mobile
+if [ $? == 0 ]; then
+   echo "edX app is installed successfully"
+else
+   echo "edX app is installed successfully"
+   exit 1
+fi
 
 # Run server
 appium &
-
 sleep 1m
 
 # /usr/bin/pip3 install -r requirements.txt
