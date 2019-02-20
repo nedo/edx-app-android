@@ -4,7 +4,6 @@ set -e
 
 # Install app on emulator 
 APK=$APK_PATH/"*.apk"
-echo $APK
 $ANDROID_HOME/platform-tools/adb install $APK
 sleep 3m
 

@@ -18,7 +18,7 @@ echo 'loading emulator'
 $ANDROID_HOME/emulator/emulator -avd test-android -no-boot-anim -no-window -noaudio & 
 # -accel on &
 
-sleep 45
+sleep 3m
 
 EXPECTED_DEVICE_NAME='emulator-5554'
 $ANDROID_HOME/platform-tools/adb devices |grep $EXPECTED_DEVICE_NAME
@@ -31,5 +31,4 @@ fi
 
 echo "Sending Key event, to press HOME button"
 $ANDROID_HOME/platform-tools/adb shell input keyevent 3 &
-
-# kill_all_emus
+sleep 2m
