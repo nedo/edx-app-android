@@ -55,22 +55,22 @@ pipeline {
         //     }
         // }
 
-        // stage('compiling edx-app-android') {
-        //     steps {
-        //         writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
-        //         sh 'bash ./resources/compile_android.sh'
-        //     }
-        // }
-        // stage('valdiate compiled app') {
-        //     steps {
-        //         sh 'bash ./resources/validate_builds.sh'
-        //     }
-        // }
-        // stage('archive the build') {
-        //     steps {
-        //         archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
-        //     }
-        // }
+        stage('compiling edx-app-android') {
+            steps {
+                writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
+                sh 'bash ./resources/compile_android.sh'
+            }
+        }
+        stage('valdiate compiled app') {
+            steps {
+                sh 'bash ./resources/validate_builds.sh'
+            }
+        }
+        stage('archive the build') {
+            steps {
+                archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
+            }
+        }
 
         stage('setup emulator '){
            steps {               
