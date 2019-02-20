@@ -87,6 +87,7 @@ pipeline {
 
         stage('start execution') {
             steps {
+                // sh "ANDROID_HOME/platform-tools/adb install $APK_PATH/*.apk"
                 sh 'bash ./resources/execute_testing.sh'
             }
         }
