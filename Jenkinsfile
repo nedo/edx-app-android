@@ -72,11 +72,11 @@ pipeline {
         //     }
         // }
 
-        // stage('setup emulator '){
-        //    steps {               
-        //        sh 'bash ./resources/setup_emulator.sh'
-        //        } 
-        // }
+        stage('setup emulator '){
+           steps {               
+               sh 'bash ./resources/setup_emulator.sh'
+               } 
+        }
 
         // stage('checkout test repo') {
         //     steps {
