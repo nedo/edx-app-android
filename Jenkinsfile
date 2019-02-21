@@ -88,7 +88,7 @@ pipeline {
 
         stage('install pre-reqs '){
            steps {               
-                sh '/usr/bin/npm install'
+                sh '/usr/bin/npm -g install appium'
                 sh 'appium'
                 sh '/usr/local/bin/pip install -r requirements.txt'
                 sh '/usr/local/bin/pip list'
