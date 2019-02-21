@@ -73,7 +73,8 @@ pipeline {
         // }
 
         stage('setup emulator '){
-           steps {               
+           steps {         
+               sh 'pwd'      
                sh 'bash ./resources/setup_emulator.sh'
                } 
         }
@@ -88,7 +89,7 @@ pipeline {
         stage('install pre-reqs '){
            steps {               
                 sh 'pwd'
-                sh 'npm install'
+                sh '/usr/bin/npm install'
                 sh '/usr/local/bin/pip list'
                 sh '/usr/local/bin/pip install -r requirements.txt'
                } 
