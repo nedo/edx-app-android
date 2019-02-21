@@ -1,8 +1,8 @@
 #!/usr/bin/env groovy
 
-def runCommandInMyEnvironment(cmd) {
-  sh "virtualenv automation; source automation/bin/activate; ${cmd}"
-}
+// def runCommandInMyEnvironment(cmd) {
+//   sh "virtualenv automation; source automation/bin/activate; ${cmd}"
+// }
 
 pipeline {
     agent {
@@ -22,8 +22,9 @@ pipeline {
         //        virtualenv {
         //            pythonName('System-CPython-2.7')
         //            nature("shell")
-        //            systemSitePackages(false)
+        //         //    systemSitePackages(false)
         //            command(readFileFromWorkspace('resources/MckinseyCI.sh'))
+                   
         //             }
         //        }
         // }
@@ -74,19 +75,19 @@ pipeline {
         //     }
         // }
 
-        stage('compiling edx-app-android') {
-            steps {
-                writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
-                // sh 'bash ./resources/compile_android.sh'
-                runCommandInMyEnvironment('bash ./resources/compile_android.sh') {
-            }
-        }
-        stage('valdiate compiled app') {
-            steps {
-                // sh 'bash ./resources/validate_builds.sh'
-                runCommandInMyEnvironment('bash ./resources/validate_builds.sh')
-            }
-        }
+        // stage('compiling edx-app-android') {
+        //     steps {
+        //         writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
+        //         // sh 'bash ./resources/compile_android.sh'
+        //         runCommandInMyEnvironment('bash ./resources/compile_android.sh') 
+        //     }
+        // }
+        // stage('valdiate compiled app') {
+        //     steps {
+        //         // sh 'bash ./resources/validate_builds.sh'
+        //         runCommandInMyEnvironment('bash ./resources/validate_builds.sh')
+        //     }
+        // }
         // stage('archive the build') {
         //     steps {
         //         archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
@@ -107,14 +108,15 @@ pipeline {
         //     }
         // }
 
-        // stage('install pre-reqs '){
-        //    steps {               
-        //         sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
-        //         sh 'appium'
-        //         sh '/usr/local/bin/pip install -r requirements.txt'
-        //         sh '/usr/local/bin/pip list'
-        //        } 
-        // }
+        stage('install pre-reqs '){
+           steps {    
+                sh 'bash ./resources/install_prereqs.sh'       
+                // sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
+                // sh 'appium'
+                // sh '/usr/local/bin/pip install -r requirements.txt'
+                // sh '/usr/local/bin/pip list'
+               } 
+        }
 
         // stage('start execution') {
         //     steps {
