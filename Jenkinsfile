@@ -1,5 +1,9 @@
 #!/usr/bin/env groovy
 
+def runCommandInMyEnvironment(cmd) {
+  sh "virtualenv automation; source automation/bin/activate; ${cmd}"
+}
+
 pipeline {
     agent {
      label 'android-worker'
@@ -12,6 +16,21 @@ pipeline {
             CONFIG_REPO_NAME = 'edx-mobile-config'
     }       
     stages {
+        
+        // stage('set up virtual env') { 
+        //     steps {
+        //        virtualenv {
+        //            pythonName('System-CPython-2.7')
+        //            nature("shell")
+        //            systemSitePackages(false)
+        //            command(readFileFromWorkspace('resources/MckinseyCI.sh'))
+        //             }
+        //        }
+        // }
+
+
+
+
     //     stage('checkingout configs') { 
     //         steps {
     //             sh 'mkdir -p edx-mobile-config'
@@ -55,17 +74,19 @@ pipeline {
         //     }
         // }
 
-        // stage('compiling edx-app-android') {
-        //     steps {
-        //         writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
-        //         sh 'bash ./resources/compile_android.sh'
-        //     }
-        // }
-        // stage('valdiate compiled app') {
-        //     steps {
-        //         sh 'bash ./resources/validate_builds.sh'
-        //     }
-        // }
+        stage('compiling edx-app-android') {
+            steps {
+                writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
+                // sh 'bash ./resources/compile_android.sh'
+                runCommandInMyEnvironment('bash ./resources/compile_android.sh') {
+            }
+        }
+        stage('valdiate compiled app') {
+            steps {
+                // sh 'bash ./resources/validate_builds.sh'
+                runCommandInMyEnvironment('bash ./resources/validate_builds.sh')
+            }
+        }
         // stage('archive the build') {
         //     steps {
         //         archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
@@ -79,29 +100,29 @@ pipeline {
         //        } 
         // }
 
-        stage('checkout test repo') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: 'naveed/LEARNER-7121']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/edx/edx-app-test.git']]]
-                )
-            }
-        }
+        // stage('checkout test repo') {
+        //     steps {
+        //         checkout([$class: 'GitSCM', branches: [[name: 'naveed/LEARNER-7121']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/edx/edx-app-test.git']]]
+        //         )
+        //     }
+        // }
 
-        stage('install pre-reqs '){
-           steps {               
-                sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
-                sh 'appium'
-                sh '/usr/local/bin/pip install -r requirements.txt'
-                sh '/usr/local/bin/pip list'
-               } 
-        }
+        // stage('install pre-reqs '){
+        //    steps {               
+        //         sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
+        //         sh 'appium'
+        //         sh '/usr/local/bin/pip install -r requirements.txt'
+        //         sh '/usr/local/bin/pip list'
+        //        } 
+        // }
 
-        stage('start execution') {
-            steps {
-                // sh "ANDROID_HOME/platform-tools/adb install $APK_PATH/*.apk"
-                sh 'bash ./resources/execute_testing.sh'
+        // stage('start execution') {
+        //     steps {
+        //         // sh "ANDROID_HOME/platform-tools/adb install $APK_PATH/*.apk"
+        //         sh 'bash ./resources/execute_testing.sh'
                 
-            }
-        }
+        //     }
+        // }
 
     }
 } 
