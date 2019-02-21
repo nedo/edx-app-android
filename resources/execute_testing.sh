@@ -2,7 +2,6 @@
 
 set -e
 
-# /usr/bin/pip3 install -r requirements.txt
 
 # Run server
 appium &

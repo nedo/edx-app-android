@@ -89,6 +89,7 @@ pipeline {
            steps {               
                 sh 'pwd'
                 sh '/usr/local/bin/pip install -r requirements.txt'
+                sh '/usr/local/bin/pip list'
                } 
         }
 
@@ -96,6 +97,7 @@ pipeline {
             steps {
                 // sh "ANDROID_HOME/platform-tools/adb install $APK_PATH/*.apk"
                 sh 'bash ./resources/execute_testing.sh'
+                
             }
         }
 
