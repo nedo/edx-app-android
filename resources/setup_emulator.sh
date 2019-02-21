@@ -18,7 +18,7 @@ echo 'loading emulator'
 $ANDROID_HOME/emulator/emulator -avd test-android -no-boot-anim -no-window -noaudio & 
 # -accel on &
 
-sleep 3m
+sleep 5m
 
 EXPECTED_DEVICE_NAME='emulator-5554'
 $ANDROID_HOME/platform-tools/adb devices |grep $EXPECTED_DEVICE_NAME
