@@ -2,10 +2,10 @@
 
 set -e
 
-virtualenv venv
-. venv/bin/activate
+virtualenv mobile_automation
+. mobile_automation/bin/activate
 
-pip install -r requirements/base.txt
+pip install -r ./requirements.txt
 
 npm install -g appium --unsafe-perm=true --allow-root
 
