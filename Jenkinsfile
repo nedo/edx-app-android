@@ -81,17 +81,16 @@ pipeline {
         stage('checkout test repo') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/edx/edx-app-test.git']]]
-                sh 'pwd'
-                sh '/usr/bin/pip3 install -r requirements.txt'
                 )
             }
         }
 
-        // stage('install pre-reqs '){
-        //    steps {               
-        //        sh 'bash ./resources/setup_emulator.sh'
-        //        } 
-        // }
+        stage('install pre-reqs '){
+           steps {               
+                sh 'pwd'
+                sh '/usr/bin/pip3 install -r requirements.txt'
+               } 
+        }
 
         stage('start execution') {
             steps {
