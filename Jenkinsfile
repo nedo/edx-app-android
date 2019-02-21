@@ -88,7 +88,7 @@ pipeline {
         stage('install pre-reqs '){
            steps {               
                 sh 'pwd'
-                sh '/usr/bin/pip3 install -r requirements.txt'
+                sh '/usr/local/bin/pip install -r requirements.txt'
                } 
         }
 
