@@ -91,7 +91,7 @@ pipeline {
                 sh 'pwd'
                 sh '/usr/bin/npm install'
                 sh '/usr/local/bin/pip list'
-                bash '/usr/local/bin/pip install -r requirements.txt'
+                sh 'bash /usr/local/bin/pip install -r requirements.txt'
                } 
         }
 
