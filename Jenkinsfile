@@ -78,12 +78,12 @@ pipeline {
                } 
         }
 
-        // stage('checkout test repo') {
-        //     steps {
-        //         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/edx/edx-app-test.git']]])
+        stage('checkout test repo') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/edx/edx-app-test.git']]])
 
-        //     }
-        // }
+            }
+        }
 
         stage('start execution') {
             steps {

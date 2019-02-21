@@ -2,6 +2,14 @@
 
 set -e
 
+
+/usr/bin/pip3 install -r requirements.txt
+
+
+# Run server
+appium &
+sleep 1m
+
 # Install edX app on emulator 
 APK=$APK_PATH/"*.apk"
 echo $APK
@@ -17,10 +25,5 @@ else
    exit 1
 fi
 
-# Run server
-appium &
-sleep 1m
-
-# /usr/bin/pip3 install -r requirements.txt
 
 # /usr/local/bin/pytest -v ./android/tests/test_android_new_landing.py --html=report.html
