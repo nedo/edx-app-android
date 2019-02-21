@@ -90,6 +90,7 @@ pipeline {
                 sh 'pwd'
                 sh '/usr/local/bin/pip install -r requirements.txt'
                 sh '/usr/local/bin/pip list'
+                sh 'npm install'
                } 
         }
 
