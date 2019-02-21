@@ -89,9 +89,10 @@ pipeline {
         stage('install pre-reqs '){
            steps {               
                 sh 'pwd'
+                sh 'ls'
                 sh '/usr/bin/npm install'
-                sh '/usr/local/bin/pip list'
                 sh '/usr/local/bin/pip install -r requirements.txt'
+                sh '/usr/local/bin/pip list'
                } 
         }
 
