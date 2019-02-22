@@ -3,9 +3,9 @@
 set -e
 
 
-# Run server
-appium &
-sleep 1m
+# # Run server
+# appium &
+# sleep 1m
 
 # Install edX app on emulator 
 APK=$APK_PATH/"*.apk"

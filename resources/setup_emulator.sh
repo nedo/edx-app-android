@@ -11,8 +11,10 @@ kill_all_emus() {
 
 echo 'Creating emulator'
 
-echo 'n' | $ANDROID_HOME/tools/bin/avdmanager create avd -n test-android -f -k "system-images;android-25;google_apis;armeabi-v7a"
-# "system-images;android-27;google_apis;x86"
+echo 'n' | $ANDROID_HOME/tools/bin/avdmanager create avd -n test-android -f -k "system-images;android-27;google_apis;x86"
+# ARM emulator in case needed 
+# "system-images;android-25;google_apis;armeabi-v7a"
+ 
 
 echo 'loading emulator'
 $ANDROID_HOME/emulator/emulator -avd test-android -no-boot-anim -no-window -noaudio & 

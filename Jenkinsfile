@@ -108,24 +108,24 @@ pipeline {
             }
         }
 
-        stage('install pre-reqs '){
-           steps {    
-                sh 'pwd && ls'
-                sh 'bash ./resources/install_prereqs.sh'       
-                // sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
-                // sh 'appium'
-                // sh '/usr/local/bin/pip install -r requirements.txt'
-                // sh '/usr/local/bin/pip list'
-               } 
-        }
-
-        // stage('start execution') {
-        //     steps {
-        //         // sh "ANDROID_HOME/platform-tools/adb install $APK_PATH/*.apk"
-        //         sh 'bash ./resources/execute_testing.sh'
-                
-        //     }
+        // stage('install pre-reqs '){
+        //    steps {    
+        //         sh 'pwd && ls'
+        //         sh 'bash ./resources/install_prereqs.sh'       
+        //         // sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
+        //         // sh 'appium'
+        //         // sh '/usr/local/bin/pip install -r requirements.txt'
+        //         // sh '/usr/local/bin/pip list'
+        //        } 
         // }
+
+        stage('start execution') {
+            steps {
+                // sh "ANDROID_HOME/platform-tools/adb install $APK_PATH/*.apk"
+                sh 'bash ./resources/execute_testing.sh'
+                
+            }
+        }
         
     }
 } 
