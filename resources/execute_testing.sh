@@ -2,11 +2,6 @@
 
 set -e
 
-
-# # Run server
-# appium &
-# sleep 1m
-
 # Install edX app on emulator 
 APK=$APK_PATH/"*.apk"
 echo $APK
@@ -23,4 +18,9 @@ else
 fi
 
 
+#  ==============WIP==========
+# Install dependencies 
+
+
+# Start execution 
 # /usr/local/bin/pytest -v ./android/tests/test_android_new_landing.py --html=report.html
