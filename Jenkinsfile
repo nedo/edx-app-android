@@ -58,22 +58,22 @@ pipeline {
     //         }
     //     }
 
-        stage('checkingout configs') {
-            steps {
-                sh 'mkdir -p edx-mobile-config'
-                dir('edx-mobile-config'){
-                    checkout([
-                        $class: 'GitSCM', 
-                        branches: [[name: 'naveed/automation_configs']], 
-                        doGenerateSubmoduleConfigurations: false, 
-                        extensions: [], 
-                        submoduleCfg: [], 
-                        userRemoteConfigs: 
-                        [[credentialsId: 'USER', url: 'https://github.com/edx/edx-mobile-config']]
-                        ])
-                }
-            }
-        }
+        // stage('checkingout configs') {
+        //     steps {
+        //         sh 'mkdir -p edx-mobile-config'
+        //         dir('edx-mobile-config'){
+        //             checkout([
+        //                 $class: 'GitSCM', 
+        //                 branches: [[name: 'naveed/automation_configs']], 
+        //                 doGenerateSubmoduleConfigurations: false, 
+        //                 extensions: [], 
+        //                 submoduleCfg: [], 
+        //                 userRemoteConfigs: 
+        //                 [[credentialsId: 'USER', url: 'https://github.com/edx/edx-mobile-config']]
+        //                 ])
+        //         }
+        //     }
+        // }
 
         stage('compiling edx-app-android') {
             steps {
