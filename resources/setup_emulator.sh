@@ -17,7 +17,8 @@ echo 'n' | $ANDROID_HOME/tools/bin/avdmanager create avd -n test-android -f -k "
  
 
 echo 'loading emulator'
-$ANDROID_HOME/emulator/emulator -avd test-android -no-boot-anim -no-window -noaudio & 
+$ANDROID_HOME/emulator/emulator -avd test-android -no-boot-anim &
+# -no-window -noaudio & 
 # -accel on &
 
 sleep 5m
@@ -25,12 +26,12 @@ sleep 5m
 EXPECTED_DEVICE_NAME='emulator-5554'
 $ANDROID_HOME/platform-tools/adb devices |grep $EXPECTED_DEVICE_NAME
 if [ $? == 0 ]; then
-   echo "The device is accessible"
+   echo "Sending Key event, to press HOME button"
+   $ANDROID_HOME/platform-tools/adb shell input keyevent 3 &
+   sleep 1m
 else
    echo "The device is not accesible"
    exit 1
 fi
 
-echo "Sending Key event, to press HOME button"
-$ANDROID_HOME/platform-tools/adb shell input keyevent 3 &
-sleep 2m
+
