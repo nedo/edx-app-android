@@ -4,6 +4,8 @@ set -e
 
 pwd && ls
 
+pwd && ls
+
 pip list 
 
 ENVIRONMENT_NAME=$PIPELINE_JOBS_NAME/"mobile_automation_env"
@@ -12,7 +14,7 @@ virtualenv "$ENVIRONMENT_NAME"
 
 source "./$ENVIRONMENT_NAME/bin/activate"
 
-/usr/local/bin/pip install -r ./requirements.txt
+/usr/local/bin/pip install -r ./edx-app-test/requirements.txt
 
 pip list 
 
