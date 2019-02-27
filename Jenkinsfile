@@ -29,34 +29,31 @@ pipeline {
         //        }
         // }
 
-
-
-
-        stage('checkingout configs') { 
-            steps {
-                sh 'mkdir -p edx-mobile-config'
-                dir('edx-mobile-config'){
-                    sshagent(credentials: ['jenkins-worker', 'jenkins-worker-pem'], ignoreMissing: true) {
-                    checkout changelog: false, poll: false, scm: [
-                        $class: 'GitSCM', 
-                        branches: 
-    // Using specific branch to avoid Firebase config limitations
-                                //[[name: '*/master']],
-                                [[name: 'naveed/automation_configs']],
-                        doGenerateSubmoduleConfigurations: false, 
-                        extensions: 
-                                [[$class: 'CloneOption', honorRefspec: true,
-                                    noTags: true, shallow: true]], 
-                        submoduleCfg: [], 
-                        userRemoteConfigs: 
-                                    [[credentialsId: 'jenkins-worker',
-                                    refspec: '+refs/heads/*:refs/remotes/origin/*', 
-                                    url: "git@github.com:edx/${CONFIG_REPO_NAME}.git"]]
-                            ]
-                    }
-                }
-            }
-        }
+    //     stage('checkingout configs') { 
+    //         steps {
+    //             sh 'mkdir -p edx-mobile-config'
+    //             dir('edx-mobile-config'){
+    //                 sshagent(credentials: ['jenkins-worker', 'jenkins-worker-pem'], ignoreMissing: true) {
+    //                 checkout changelog: false, poll: false, scm: [
+    //                     $class: 'GitSCM', 
+    //                     branches: 
+    // // Using specific branch to avoid Firebase config limitations
+    //                             //[[name: '*/master']],
+    //                             [[name: 'naveed/automation_configs']],
+    //                     doGenerateSubmoduleConfigurations: false, 
+    //                     extensions: 
+    //                             [[$class: 'CloneOption', honorRefspec: true,
+    //                                 noTags: true, shallow: true]], 
+    //                     submoduleCfg: [], 
+    //                     userRemoteConfigs: 
+    //                                 [[credentialsId: 'jenkins-worker',
+    //                                 refspec: '+refs/heads/*:refs/remotes/origin/*', 
+    //                                 url: "git@github.com:edx/${CONFIG_REPO_NAME}.git"]]
+    //                         ]
+    //                 }
+    //             }
+    //         }
+    //     }
 
         // stage('checkingout configs') {
         //     steps {
