@@ -1,9 +1,5 @@
 #!/usr/bin/env groovy
 
-// def runCommandInMyEnvironment(cmd) {
-//   sh "virtualenv automation; source automation/bin/activate; ${cmd}"
-// }
-
 pipeline {
     agent {
      label 'android-worker'
@@ -16,19 +12,6 @@ pipeline {
             CONFIG_REPO_NAME = 'edx-mobile-config'
     }       
     stages {
-        
-        // stage('set up virtual env') { 
-        //     steps {
-        //        virtualenv {
-        //            pythonName('System-CPython-2.7')
-        //            nature("shell")
-        //         //    systemSitePackages(false)
-        //            command(readFileFromWorkspace('resources/MckinseyCI.sh'))
-                   
-        //             }
-        //        }
-        // }
-
     //     stage('checkingout configs') { 
     //         steps {
     //             sh 'mkdir -p edx-mobile-config'
@@ -88,14 +71,11 @@ pipeline {
                 archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
             }
         }
-
         stage('setup emulator '){
-           steps {         
-               sh 'pwd'      
+           steps {           
                sh 'bash ./resources/setup_emulator.sh'
                } 
         }
-
         stage('checkout test repo') {
             steps {
                 sh 'mkdir -p edx-app-test'
@@ -105,26 +85,16 @@ pipeline {
                 }
             }
         }
-
         stage('install pre-reqs '){
            steps {    
-                // sh 'pwd'  
                 sh 'bash ./resources/install_prereqs.sh'       
-                // sh 'pwd'  
-                // sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
-                // sh 'appium'
-                // sh '/usr/local/bin/pip install -r requirements.txt'
-                // sh '/usr/local/bin/pip list'
                } 
         }
-
         // stage('start execution') {
         //     steps {
         //         // sh "ANDROID_HOME/platform-tools/adb install $APK_PATH/*.apk"
-        //         sh 'bash ./resources/execute_testing.sh'
-                
+        //         sh 'bash ./resources/execute_testing.sh'    
         //     }
         // }
-        
     }
 } 
