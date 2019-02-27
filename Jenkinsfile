@@ -75,57 +75,55 @@ pipeline {
         //     }
         // }
 
-        stage('compiling edx-app-android') {
-            steps {
-                writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
-                 sh 'bash ./resources/compile_android.sh'
-                // runCommandInMyEnvironment('bash ./resources/compile_android.sh') 
-            }
-        }
-        stage('valdiate compiled app') {
-            steps {
-                sh 'bash ./resources/validate_builds.sh'
-                // runCommandInMyEnvironment('bash ./resources/validate_builds.sh')
-            }
-        }
-        stage('archive the build') {
-            steps {
-                archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
-            }
-        }
+        // stage('compiling edx-app-android') {
+        //     steps {
+        //         writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
+        //          sh 'bash ./resources/compile_android.sh'
+        //     }
+        // }
+        // stage('valdiate compiled app') {
+        //     steps {
+        //         sh 'bash ./resources/validate_builds.sh'
+        //     }
+        // }
+        // stage('archive the build') {
+        //     steps {
+        //         archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
+        //     }
+        // }
 
-        stage('setup emulator '){
-           steps {         
-               sh 'pwd'      
-               sh 'bash ./resources/setup_emulator.sh'
-               } 
-        }
-
-        stage('checkout test repo') {
-            steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/edx/edx-app-test.git']]]
-                )
-            }
-        }
-
-        // stage('install pre-reqs '){
-        //    steps {    
-        //         sh 'pwd && ls'
-        //         sh 'bash ./resources/install_prereqs.sh'       
-        //         // sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
-        //         // sh 'appium'
-        //         // sh '/usr/local/bin/pip install -r requirements.txt'
-        //         // sh '/usr/local/bin/pip list'
+        // stage('setup emulator '){
+        //    steps {         
+        //        sh 'pwd'      
+        //        sh 'bash ./resources/setup_emulator.sh'
         //        } 
         // }
 
-        stage('start execution') {
-            steps {
-                // sh "ANDROID_HOME/platform-tools/adb install $APK_PATH/*.apk"
-                sh 'bash ./resources/execute_testing.sh'
-                
-            }
+        // stage('checkout test repo') {
+        //     steps {
+        //         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/edx/edx-app-test.git']]]
+        //         )
+        //     }
+        // }
+
+        stage('install pre-reqs '){
+           steps {    
+                sh 'pwd && ls'
+                sh 'bash ./resources/install_prereqs.sh'       
+                // sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
+                // sh 'appium'
+                // sh '/usr/local/bin/pip install -r requirements.txt'
+                // sh '/usr/local/bin/pip list'
+               } 
         }
+
+        // stage('start execution') {
+        //     steps {
+        //         // sh "ANDROID_HOME/platform-tools/adb install $APK_PATH/*.apk"
+        //         sh 'bash ./resources/execute_testing.sh'
+                
+        //     }
+        // }
         
     }
 } 

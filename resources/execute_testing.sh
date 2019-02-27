@@ -3,6 +3,7 @@
 set -e
 
 # Install edX app on emulator 
+APK_PATH=/Users/naveed/Downloads
 APK=$APK_PATH/"*.apk"
 echo $APK
 $ANDROID_HOME/platform-tools/adb install $APK
