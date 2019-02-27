@@ -58,56 +58,60 @@ pipeline {
     //         }
     //     }
 
-        // stage('checkingout configs') {
-        //     steps {
-        //         sh 'mkdir -p edx-mobile-config'
-        //         dir('edx-mobile-config'){
-        //             checkout([
-        //                 $class: 'GitSCM', 
-        //                 branches: [[name: 'naveed/automation_configs']], 
-        //                 doGenerateSubmoduleConfigurations: false, 
-        //                 extensions: [], 
-        //                 submoduleCfg: [], 
-        //                 userRemoteConfigs: 
-        //                 [[credentialsId: 'USER', url: 'https://github.com/edx/edx-mobile-config']]
-        //                 ])
-        //         }
-        //     }
-        // }
+        stage('checkingout configs') {
+            steps {
+                sh 'mkdir -p edx-mobile-config'
+                dir('edx-mobile-config'){
+                    checkout([
+                        $class: 'GitSCM', 
+                        branches: [[name: 'naveed/automation_configs']], 
+                        doGenerateSubmoduleConfigurations: false, 
+                        extensions: [], 
+                        submoduleCfg: [], 
+                        userRemoteConfigs: 
+                        [[credentialsId: 'USER', url: 'https://github.com/edx/edx-mobile-config']]
+                        ])
+                }
+            }
+        }
 
-        // stage('compiling edx-app-android') {
-        //     steps {
-        //         writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
-        //          sh 'bash ./resources/compile_android.sh'
-        //     }
-        // }
-        // stage('valdiate compiled app') {
-        //     steps {
-        //         sh 'bash ./resources/validate_builds.sh'
-        //     }
-        // }
-        // stage('archive the build') {
-        //     steps {
-        //         archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
-        //     }
-        // }
+        stage('compiling edx-app-android') {
+            steps {
+                writeFile file: './OpenEdXMobile/edx.properties', text: 'edx.dir = \'../edx-mobile-config/prod/\''  
+                 sh 'bash ./resources/compile_android.sh'
+            }
+        }
+        stage('valdiate compiled app') {
+            steps {
+                sh 'bash ./resources/validate_builds.sh'
+            }
+        }
+        stage('archive the build') {
+            steps {
+                archiveArtifacts artifacts: "$APK_PATH/*.apk", onlyIfSuccessful: true
+            }
+        }
 
-        // stage('setup emulator '){
-        //    steps {         
-        //        sh 'pwd'      
-        //        sh 'bash ./resources/setup_emulator.sh'
-        //        } 
-        // }
+        stage('setup emulator '){
+           steps {         
+               sh 'pwd'      
+               sh 'bash ./resources/setup_emulator.sh'
+               } 
+        }
 
-        // stage('checkout test repo') {
-        //     steps {
-        //         checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/edx/edx-app-test.git']]]
-        //         )
-        //     }
-        // }
+        stage('checkout test repo') {
+            steps {
+                sh 'mkdir -p edx-app-test'
+                dir('edx-app-test'){
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/edx/edx-app-test.git']]]
+                    )
+                }
+            }
+        }
 
         stage('install pre-reqs '){
            steps {    
+                sh 'pwd'  
                 sh 'bash ./resources/install_prereqs.sh'       
                 // sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
                 // sh 'appium'

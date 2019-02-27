@@ -4,6 +4,8 @@ set -e
 
 pwd && ls
 
+pip list 
+
 ENVIRONMENT_NAME=$PIPELINE_JOBS_NAME/"mobile_automation_env"
 
 virtualenv "$ENVIRONMENT_NAME"
@@ -12,5 +14,10 @@ source "./$ENVIRONMENT_NAME/bin/activate"
 
 /usr/local/bin/pip install -r ./requirements.txt
 
+pip list 
+
 pwd && ls
+
+pytest 
+
 
