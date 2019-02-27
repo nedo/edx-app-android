@@ -6,7 +6,7 @@ set -e
 APK=$APK_PATH/"*.apk"
 echo $APK
 $ANDROID_HOME/platform-tools/adb install $APK
-sleep 3m
+sleep 1m
 
 # Verify if edX app is installed successfully
 $ANDROID_HOME/platform-tools/adb shell pm list packages | grep org.edx.mobile
@@ -17,10 +17,8 @@ else
    exit 1
 fi
 
-
 #  ==============WIP==========
 # Install dependencies 
-
 
 # Start execution 
 # /usr/local/bin/pytest -v ./android/tests/test_android_new_landing.py --html=report.html
