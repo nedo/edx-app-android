@@ -2,7 +2,7 @@
 
 set -e
 
-pwd && ls
+# pwd && ls
 
 pip list 
 
@@ -12,7 +12,9 @@ virtualenv "$ENVIRONMENT_NAME"
 
 source "./$ENVIRONMENT_NAME/bin/activate"
 
-/usr/local/bin/pip install -r ./edx-app-test/requirements.txt
+pip list 
+
+pip install -r ./edx-app-test/requirements.txt
 
 pip list 
 

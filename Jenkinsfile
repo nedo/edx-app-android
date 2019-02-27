@@ -108,9 +108,9 @@ pipeline {
 
         stage('install pre-reqs '){
            steps {    
-                sh 'pwd'  
+                // sh 'pwd'  
                 sh 'bash ./resources/install_prereqs.sh'       
-                sh 'pwd'  
+                // sh 'pwd'  
                 // sh '/usr/bin/npm install -g appium --unsafe-perm=true --allow-root'
                 // sh 'appium'
                 // sh '/usr/local/bin/pip install -r requirements.txt'
