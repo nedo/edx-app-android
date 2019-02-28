@@ -14,9 +14,11 @@ pip install nodeenv
 # Install node requirements 
 nodeenv "$NODE_ENVIRONMENT_NAME"
 source "./$NODE_ENVIRONMENT_NAME/bin/activate"
-
 npm install appium 
 
-appium & 
+./node_modules/.bin/appium & 
+
+sleep 5
+
 
 pytest 
